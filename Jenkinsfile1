@@ -30,6 +30,7 @@ pipeline {
                     sh 'mvn --version' 
                     sh 'mvn install'
                     sh 'mvn package'
+                }   
                 
             }
         }
@@ -45,5 +46,4 @@ pipeline {
             }
         }
     }
-}
 }
