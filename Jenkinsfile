@@ -12,6 +12,7 @@ pipeline {
                     // Define SSH credentials for Git
                     def gitCredentials = credentials('git')
 
+                    // Option 1: Using `checkout` (GitSCM)
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: '*/master']],
@@ -20,12 +21,26 @@ pipeline {
                             credentialsId: gitCredentials.id  // Use the SSH credentials here
                         ]]
                     ])
+
+                    // Option 2: Using `git` step (alternative approach)
+                    // git url: 'https://github.com/jjaswanth66/pipe_line.git', credentialsId: 'git'
+
                     sh 'mvn --version' 
                     sh 'mvn install'
                     sh 'mvn package'
                 }
             }
         }
-        // ... (Other stages)
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                sh 'node --version'
+                // Add Front-end build steps here if needed
+            }
+        }
     }
 }
