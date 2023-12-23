@@ -8,22 +8,24 @@ pipeline {
                 }
             }
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'git@github.com:jjaswanth66/pipe_line.git']]])
-                sh 'mvn --version' 
-                sh 'mvn install'
-                sh 'mvn package'
-            }
-        }
-        stage('Front-end') {
-            agent {
-                docker { 
-                    image 'node:16-alpine'
+                script {
+                    // Define SSH credentials for Git
+                    def gitCredentials = credentials('git')
+
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/master']],
+                        userRemoteConfigs: [[
+                            url: 'git@github.com:jjaswanth66/pipe_line.git',
+                            credentialsId: gitCredentials.id  // Use the SSH credentials here
+                        ]]
+                    ])
+                    sh 'mvn --version' 
+                    sh 'mvn install'
+                    sh 'mvn package'
                 }
             }
-            steps {
-                sh 'node --version'
-                // Add Front-end build steps here if needed
-            }
         }
+        // ... (Other stages)
     }
 }
