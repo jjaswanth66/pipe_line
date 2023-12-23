@@ -21,7 +21,9 @@ pipeline {
                             credentialsId: gitCredentials.id  // Use the SSH credentials here
                         ]]
                     ])
+                }
 
+            steps {
                     // Option 2: Using `git` step (alternative approach)
                     // git url: 'https://github.com/jjaswanth66/pipe_line.git', credentialsId: 'git'
                     git 'git@github.com:jjaswanth66/pipe_line.git'
