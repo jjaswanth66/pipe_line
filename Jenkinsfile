@@ -4,11 +4,11 @@ pipeline {
         stage('Back-end') {
             agent {
                 docker { 
-                    image 'maven:3.8.1-adoptopenjdk-11'
+                    image 'maven:3.6.3-adoptopenjdk-11'
                 }
             }
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'git@github.com:jjaswanth66/practice.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'git@github.com:jjaswanth66/pipe_line.git']]])
                 sh 'mvn --version' 
                 sh 'mvn install'
                 sh 'mvn package'
