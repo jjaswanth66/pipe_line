@@ -24,7 +24,7 @@ pipeline {
 
                     // Option 2: Using `git` step (alternative approach)
                     // git url: 'https://github.com/jjaswanth66/pipe_line.git', credentialsId: 'git'
-
+                    git 'git@github.com:jjaswanth66/pipe_line.git'
                     sh 'mvn --version' 
                     sh 'mvn install'
                     sh 'mvn package'
