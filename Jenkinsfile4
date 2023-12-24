@@ -40,8 +40,6 @@ pipeline {
                 }
             }
          }
-       }
-        
         stage('Front-end') {
             agent {
                 docker { 
@@ -54,4 +52,5 @@ pipeline {
             }
         }
     }
+}
 
