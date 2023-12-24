@@ -1,21 +1,29 @@
-pipeline{
-  agent none
-  stages{
-    stage('back end') 
-    {
-      agent { docker { image 'maven:3.6.3-adoptopenjdk-11'}}
-    }
-        steps {
-          sh 'mvn --version'
-              }
+pipeline {
+    agent none
 
-    stage('front end')
-    {
-      agent { docker {image 'node:16-alpine'} }
-    }
-         steps {
-           sh 'node --version'
-               }
-  }
+    stages {
+        stage('Back-end') {
+            agent {
+                docker { 
+                    image 'maven:3.6.3-adoptopenjdk-11'
+                }
+            }
+            steps {
+                sh 'mvn --version'
+            }
+        }
 
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                sh 'node --version'
+                // Add Front-end build steps here if needed
+            }
+        }
+    }
 }
+
