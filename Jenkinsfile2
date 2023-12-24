@@ -46,6 +46,7 @@ pipeline {
                     }
                 }
             }
+         }
         
         stage('Front-end') {
             agent {
