@@ -11,8 +11,7 @@ pipeline {
             }
             steps {
                 sh 'mvn --version'
-                sh 'mvn -Dmaven.repo.local=/root/.m2'
-                sh 'mvn package'
+                
         
             }
         }
@@ -33,6 +32,7 @@ pipeline {
             steps {
               script {
                   git credentialsId: 'git', url: 'https://github.com/jjaswanth66/pipe_line.git'
+        
                     sh 'git add .'
                     sh 'git commit -m "Jenkins build artifacts"'
                     sh 'git push origin master' // Replace 'master' with your branch name
