@@ -11,6 +11,7 @@ pipeline {
             }
             steps {
                 sh 'mvn --version'
+                sh 'mvn -Dmaven.repo.local=/root/.m2'
                 sh 'mvn package'
         
             }
