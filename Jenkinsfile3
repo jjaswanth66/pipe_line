@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Define the Docker image to use for Maven
+                    def dockerImage = 'maven:3.6.3-adoptopenjdk-11'
+
+                    // Run Maven commands inside the Docker container
+                    docker.image(dockerImage).inside('-v $HOME/.m2:/root/.m2') {
+                        // Checkout code from Git repository (if needed)
+                        // git 'https://github.com/your/repository.git'
+
+                        // Run Maven install command
+                        sh 'mvn --version'  // Check Maven version
+                        sh 'mvn clean install'
+                    }
+                }
+            }
+        }
+    }
+}
