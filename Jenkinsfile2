@@ -42,7 +42,7 @@ pipeline {
 
                         // Run Maven install command
                         sh 'mvn --version'  // Check Maven version
-                        sh 'mvn clean install'
+                        sh 'mvn clean '
                     }
                 }
             }
