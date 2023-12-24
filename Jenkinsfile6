@@ -5,14 +5,11 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.6-eclipse-temurin-21-jammy'
-                    
-                    
                 }
             }
             steps {
                 sh 'mvn --version'
-                
-        
+                // Add other Maven commands here if needed
             }
         }
 
@@ -29,19 +26,14 @@ pipeline {
         }
 
         stage('git-push') {
-            agent {
-                 git 
-            }
-         }
+            agent any // Use 'any' agent for this stage, as it doesn't require a specific docker image
             steps {
-              script {
-                  git credentialsId: 'git', url: 'https://github.com/jjaswanth66/pipe_line.git'
-        
+                script {
+                    git credentialsId: 'git', url: 'https://github.com/jjaswanth66/pipe_line.git'
                     sh 'git add .'
                     sh 'git commit -m "Jenkins build artifacts"'
                     sh 'git push origin master' // Replace 'master' with your branch name
-
-              }
+                }
             }
         }
     }
