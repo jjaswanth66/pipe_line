@@ -5,17 +5,17 @@ pipeline{
     {
       agent { docker { image 'maven:3.6.3-adoptopenjdk-11'}}
     }
-    steps {
-      sh 'mvn --version'
-    }
+        steps {
+          sh 'mvn --version'
+              }
 
     stage('front end')
     {
       agent { docker {image 'node:16-alpine'} }
     }
-    steps {
-      sh 'node --version'
-    }
+         steps {
+           sh 'node --version'
+               }
   }
 
 }
