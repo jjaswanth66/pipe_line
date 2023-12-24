@@ -11,7 +11,7 @@ pipeline {
             }
             steps {
                 sh 'mvn --version'
-                sh 'mvn clean install -s /root/.m2/settings.xml'
+                sh 'mvn clean install -s /root/.m2'
         
             }
         }
