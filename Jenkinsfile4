@@ -9,19 +9,6 @@ pipeline {
             }
             steps {
                 script {
-                    // Define SSH credentials for Git
-                    def gitCredentials = credentials('git')
-
-                    // Checkout code from Git repository using SSH credentials
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/master']],
-                        userRemoteConfigs: [[
-                            url: 'git@github.com:jjaswanth66/pipe_line.git',
-                            credentialsId: gitCredentials.id
-                        ]]
-                    ])
-
                     // Define the Docker image to use for Maven
                     def dockerImage = 'maven:3.6.3-adoptopenjdk-11'
 
