@@ -1,0 +1,56 @@
+pipeline {
+    agent none
+    stages {
+        stage('Back-end') {
+            steps {
+                script {
+                    // Define SSH credentials for Git
+                    def gitCredentials = credentials('git')
+
+                    // Option 1: Using `checkout` (GitSCM)
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/master']],
+                        userRemoteConfigs: [[
+                            url: 'git@github.com:jjaswanth66/pipe_line.git',
+                            credentialsId: gitCredentials.id  // Use the SSH credentials here
+                        ]]
+                    ])
+                }
+                  }
+            agent {
+                docker { 
+                    image 'maven:3.6.3-adoptopenjdk-11'
+                }
+            }
+            steps {
+                script {
+                    // Define the Docker image to use for Maven
+                    def dockerImage = 'maven:3.6.3-adoptopenjdk-11'
+
+                    // Run Maven commands inside the Docker container
+                    docker.image(dockerImage).inside('-v $HOME/.m2:/root/.m2') {
+                        // Checkout code from Git repository (if needed)
+                        // git 'https://github.com/your/repository.git'
+
+                        // Run Maven install command
+                        sh 'mvn --version'  // Check Maven version
+                        sh 'mvn clean '
+                    }
+                }
+            }
+         }
+        
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                sh 'node --version'
+                // Add Front-end build steps here if needed
+            }
+        }
+    }
+}
