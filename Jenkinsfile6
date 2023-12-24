@@ -11,7 +11,7 @@ pipeline {
             }
             steps {
                 sh 'mvn --version'
-                sh 'mvn install'
+                sh 'mvn package'
         
             }
         }
