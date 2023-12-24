@@ -30,20 +30,21 @@ pipeline {
                     image 'maven:3.6.3-adoptopenjdk-11'
                 }
             }
-            steps{
-              script{
-                   docker.image('maven:3.6.3-adoptopenjdk-11').inside('-v $HOME/.m2:/root/.m2') 
+            steps {
+                script {
+                    // Define the Docker image to use for Maven
+                    def dockerImage = 'maven:3.6.3-adoptopenjdk-11'
 
-              }
-            
-                    // Option 2: Using `git` step (alternative approach)
-                    // git url: 'https://github.com/jjaswanth66/pipe_line.git', credentialsId: 'git'
-                    git 'git@github.com:jjaswanth66/pipe_line.git'
-                    sh 'mvn --version' 
-                    sh 'mvn install'
-                    sh 'mvn package'
-                }   
-                
+                    // Run Maven commands inside the Docker container
+                    docker.image(dockerImage).inside('-v $HOME/.m2:/root/.m2') {
+                        // Checkout code from Git repository (if needed)
+                        // git 'https://github.com/your/repository.git'
+
+                        // Run Maven install command
+                        sh 'mvn --version'  // Check Maven version
+                        sh 'mvn clean install'
+                    }
+                }
             }
         
         stage('Front-end') {
