@@ -1,0 +1,40 @@
+pipeline {
+    agent none
+    stages {
+        stage('Back-end') {
+            agent {
+                docker { 
+                    image 'maven:3.9.6-eclipse-temurin-21-jammy'
+                }
+            }
+            steps {
+                sh 'mvn --version'
+                sh 'mvn clean'
+            }
+        }
+
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                sh 'node --version'
+                // Add Front-end build steps here if needed
+            }
+        }
+
+        stage('git-push') {
+            steps {
+              script {
+                  git credentialsId: 'git', url: 'https://github.com/jjaswanth66/pipe_line.git'
+                    sh 'git add .'
+                    sh 'git commit -m "Jenkins build artifacts"'
+                    sh 'git push origin master' // Replace 'master' with your branch name
+
+              }
+            }
+        }
+    }
+}
