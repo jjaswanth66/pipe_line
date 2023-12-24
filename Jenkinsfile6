@@ -5,13 +5,13 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.6-eclipse-temurin-21-jammy'
-                    args '-v /root/.m2'
+                    
                     
                 }
             }
             steps {
                 sh 'mvn --version'
-                sh 'mvn clean install -s /usr/share/maven/conf/settings.xml'
+                sh 'mvn clean install'
         
             }
         }
