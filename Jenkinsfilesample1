@@ -1,0 +1,16 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:latest' // Use the Maven Docker image
+            args '-v $HOME/.m2:/root/.m2' // Mount local Maven repository if needed
+        }
+    }
+    stages {
+        stage('Maven Package') {
+            steps {
+                sh 'mvn --version' // Execute Maven package goal
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
