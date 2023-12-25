@@ -4,7 +4,7 @@ pipeline {
         stage('Back-end') {
             agent {
                 docker { 
-                    image 'maven'
+                    image 'maven:3.9.6-eclipse-temurin-21-jammy'
                     args '-v /home/maven/repository:/root/.m2/repository' // Adjust the volume mount
                 }
             }
