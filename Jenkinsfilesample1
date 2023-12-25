@@ -9,7 +9,7 @@ pipeline {
         stage('Maven Package') {
             steps {
                 sh 'mvn --version' // Execute Maven package goal
-                sh 'mvn clean package -Dmaven.repo.local=/home/maven'
+                sh 'mvn clean package -Dmaven.repo.local=/var/lib/jenkins/.m2'
 
             }
         }
