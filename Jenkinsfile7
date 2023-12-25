@@ -43,7 +43,7 @@ pipeline {
                         // Git commands to push changes
                         sh 'git add .'
                         sh 'git commit -m "Jenkins build artifacts"'
-                        sh 'git push origin main' // Replace 'main' with your branch name
+                        sh 'git push origin master' // Replace 'main' with your branch name
                     }
                 }
             }
