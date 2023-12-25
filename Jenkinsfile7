@@ -5,7 +5,7 @@ pipeline {
             agent {
                 docker { 
                     image 'maven'
-                    args '-v /usr/share/maven/repository:/root/.m2/repository' // Adjust the volume mount
+                    args '-v /home/maven/repository:/root/.m2/repository' // Adjust the volume mount
                 }
             }
             steps {
