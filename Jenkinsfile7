@@ -15,8 +15,8 @@ pipeline {
                 // Navigate to the cloned repository directory
                 dir('pipe_line') {
                     // Check Maven version and perform Maven build
-                    sh 'sudo mvn --version'
-                    sh 'sudo mvn clean install'
+                    sh 'mvn --version'
+                    sh 'mvn clean install'
                     // Add other Maven commands here if needed
                 }
             }
