@@ -4,7 +4,7 @@ pipeline {
         stage('Back-end') {
             agent {
                 docker { 
-                    image 'maven:lts'
+                    image 'maven'
                     args '-v /home/maven/repository:/root/.m2/repository' // Adjust the volume mount
                 }
             }
