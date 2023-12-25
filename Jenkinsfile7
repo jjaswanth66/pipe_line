@@ -1,0 +1,52 @@
+pipeline {
+    agent none
+    stages {
+        stage('Back-end') {
+            agent {
+                docker { 
+                    image 'maven:3.9.6-eclipse-temurin-21-jammy'
+                    args '-v /host/path:/container/path' // Adjust the volume mount
+                }
+            }
+            steps {
+                // Clone the Git repository
+                git branch: 'main', credentialsId: 'git', url: 'https://github.com/jjaswanth66/pipe_line.git'
+                
+                // Navigate to the cloned repository directory
+                dir('pipe_line') {
+                    // Check Maven version and perform Maven build
+                    sh 'mvn --version'
+                    sh 'mvn clean install'
+                    // Add other Maven commands here if needed
+                }
+            }
+        }
+
+        stage('Front-end') {
+            agent {
+                docker { 
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                sh 'node --version'
+                // Add Front-end build steps here if needed
+            }
+        }
+
+        stage('git-push') {
+            agent any // Use 'any' agent for this stage, as it doesn't require a specific docker image
+            steps {
+                script {
+                    // Navigate to the cloned repository directory
+                    dir('pipe_line') {
+                        // Git commands to push changes
+                        sh 'git add .'
+                        sh 'git commit -m "Jenkins build artifacts"'
+                        sh 'git push origin main' // Replace 'main' with your branch name
+                    }
+                }
+            }
+        }
+    }
+}
