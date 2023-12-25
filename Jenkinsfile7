@@ -5,7 +5,7 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.6-eclipse-temurin-21-jammy'
-                    args '-v /host/path:/container/path' // Adjust the volume mount
+                    args '-v /usr/share/maven' // Adjust the volume mount
                 }
             }
             steps {
