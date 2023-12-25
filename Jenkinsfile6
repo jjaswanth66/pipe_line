@@ -5,9 +5,11 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.6-eclipse-temurin-21-jammy'
+                    args '-v /app/workspace'
                 }
             }
             steps {
+                git 'https://github.com/jjaswanth66/pipe_line.git'
                 sh 'mvn --version'
                 // Add other Maven commands here if needed
             }
