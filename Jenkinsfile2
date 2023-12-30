@@ -4,7 +4,7 @@ pipeline {
         stage('Back-end') {
             agent {
                 docker { 
-                    image 'maven:3.6.3-adoptopenjdk-11'
+                    image 'maven:latest'
                 }
             }
             steps {
@@ -27,22 +27,20 @@ pipeline {
         stage('run') {
             agent {
                 docker { 
-                    image 'maven:3.6.3-adoptopenjdk-11'
+                    image 'maven:latest'
                 }
             }
             steps {
                 script {
                     // Define the Docker image to use for Maven
-                    def dockerImage = 'maven:3.6.3-adoptopenjdk-11'
+                    def dockerImage = 'maven:latest'
 
-                    // Run Maven commands inside the Docker container
-                    docker.image(dockerImage).inside('-v $HOME/.m2:/root/.m2') {
-                        // Checkout code from Git repository (if needed)
-                        // git 'https://github.com/your/repository.git'
-
-                        // Run Maven install command
-                        sh 'mvn --version'  // Check Maven version
-                        sh 'mvn clean '
+                     docker.image(DOCKER_IMAGE).inside('-v $PWD:/app') {
+                        // Change to the directory where the pom.xml exists
+                        dir('/home/maven/pipe_line') {
+                            // Run Maven commands
+                            sh 'mvn --version'
+                            sh 'mvn clean install' // Replace with your Maven commands
                     }
                 }
             }
