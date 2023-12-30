@@ -5,7 +5,7 @@ pipeline {
             agent {
                 docker { 
                     image 'maven:3.9.6-eclipse-temurin-21-jammy'
-                    args '-v /var/lib/jenkins/workspace'
+                    args '-v /var/lib/jenkins/workspace/pipe_line'
                 }
             }
             steps {
