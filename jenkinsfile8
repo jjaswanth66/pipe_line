@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone your Git repository
-                git 'https://github.com/your/repository.git'
+                git 'https://github.com/jjaswanth66/pipe_line.git'
             }
         }
         
@@ -19,7 +19,7 @@ pipeline {
                     // Run Maven build inside the Docker container
                     docker.image(DOCKER_IMAGE).inside('-v $PWD:/app') {
                         // Change to the directory where the pom.xml exists
-                        dir('path_to_your_maven_project') {
+                        dir('/home/maven/pipe_line') {
                             // Run Maven commands
                             sh 'mvn clean install' // Replace with your Maven commands
                         }
