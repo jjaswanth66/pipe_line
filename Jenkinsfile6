@@ -4,13 +4,8 @@ pipeline {
         stage('Back-end') {
             agent {
                 docker { 
-                    agent {
-    docker {
-        image 'maven:3.9.6-eclipse-temurin-21-jammy'
-        args '-v /var/lib/jenkins/workspace/pipe_line:/var/lib/jenkins/workspace/pipe_line -v /root/.m2/repository:/root/.m2/repository'
-    }
-}
-
+                    image 'maven:3.9.6-eclipse-temurin-21-jammy'
+                    args '-v /var/lib/jenkins/workspace/pipe_line:/var/lib/jenkins/workspace/pipe_line -v /root/.m2/repository:/root/.m2/repository'
                 }
             }
             steps {
@@ -46,3 +41,4 @@ pipeline {
         }
     }
 }
+
