@@ -11,7 +11,8 @@ pipeline {
             steps {
                 git 'https://github.com/jjaswanth66/pipe_line.git'
                 sh 'mvn --version'
-                sh 'mvn clean install'
+                sh 'mvn clean install -Dmaven.repo.local=/opt/jenkins'
+
                 // Add other Maven commands here if needed
             }
         }
